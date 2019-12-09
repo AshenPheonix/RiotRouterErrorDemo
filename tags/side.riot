@@ -1,0 +1,47 @@
+<blog>
+    <Router base={state.base}>
+        <select onchange={change_demo}>
+            <option value="-1">Home</option>
+            <option value="1">Opt 1</option>
+            <option value="2">Opt 2</option>
+        </select>
+        <Route path="#">
+            Home
+        </Route>
+        <Route path="#/:id">
+            Option {route.params[0]}
+        </Route>
+    </Router>
+
+    <script>
+               import {Router,Route,router,setBase} from '@riotjs/route'
+        
+        export default{
+            components:{
+                Router,
+                Route
+            },
+            state:{
+                base:
+                    //`localhost:5500/side.html#` //fails on load
+                    //`/side.html#` //initial page load goes to http://localhost:5500/side.html#http://localhost:5500/side.html
+                    //`side.html#` //same as above
+                    //`#`// see above
+                    //`localhost:5500/side.html`//fails when trying to push changes
+            }
+            ,
+            onBeforeUpdate(props,state){
+            },
+            onBeforeMount(props,state){
+            },
+            onMounted(){
+                // router.push('#')
+            },
+            change_demo(e){
+                console.log(e)
+                //router.push(`#${e.target.value}`)//fails
+                router.push(`${e.target.value}`)
+            }
+        }
+    </script>
+</blog>
