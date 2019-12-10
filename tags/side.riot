@@ -14,8 +14,8 @@
     </Router>
 
     <script>
-               import {Router,Route,router,setBase} from '@riotjs/route'
-        
+                import {Router,Route,router,setBase} from '@riotjs/route'
+                const loc = window.location
         export default{
             components:{
                 Router,
@@ -23,13 +23,12 @@
             },
             state:{
                 base:
-                    //`localhost:5500/side.html#` //fails on load
-                    //`/side.html#` //initial page load goes to http://localhost:5500/side.html#http://localhost:5500/side.html
+                    `${loc.protocol}//${loc.host}/side.html#` //fails on load
+                    //`/side.html#` //initial page load goes to {host}/side.html#{host}/side.html
                     //`side.html#` //same as above
                     //`#`// see above
-                    //`localhost:5500/side.html`//fails when trying to push changes
-            }
-            ,
+                    //`${loc.protocol}//${loc.host}/side.html`//fails when trying to push changes
+            },
             onBeforeUpdate(props,state){
             },
             onBeforeMount(props,state){
@@ -39,8 +38,7 @@
             },
             change_demo(e){
                 console.log(e)
-                //router.push(`#${e.target.value}`)//fails
-                router.push(`${e.target.value}`)
+                router.push(`${e.target.value}`)//fails when base is set, when not set, sets the path as host
             }
         }
     </script>
